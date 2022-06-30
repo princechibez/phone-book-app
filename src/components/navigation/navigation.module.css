@@ -1,0 +1,167 @@
+.head {
+    height: 15vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: transparent;
+    box-sizing: border-box;
+}
+
+.head section {
+    height: 100%;
+}
+
+.head section {
+    width: calc(100vw / 3);
+}
+
+.head .logo_section img {
+    animation-name: move;
+    animation-duration: 2.5s;
+    animation-timing-function: ease-in;
+    /* animation-delay: 10s; */
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+@keyframes move {
+    0% {
+        transform: translateY(2px);
+    }
+    20% {
+        transform: translateY(4px);
+    }
+    40% {
+        transform: translateY(-2px);
+    }
+    70% {
+        transform: translateY(-4px);
+    }
+    80% {
+        transform: translateY(-2px);
+    }
+    90% {
+        transform: translateY(0);
+    }
+}
+
+/* will still delete just used it for testing */
+/* .head section:nth-child(odd) {
+    background-color: rebeccapurple;
+} */
+.head section:nth-child(1) img {
+    display: inline;
+    height: 90%;
+    width: 35%;
+    margin: 10px 0px 0 0;
+    vertical-align: middle;
+    align-self: center;
+    border-radius: 50%;
+}
+.head section:nth-child(1) h3 {
+    font-weight: bolder;
+    color: white;
+    font-family: sans-serif;
+    letter-spacing: 1px;
+    text-transform: capitalize;
+    display: inline;
+    height: 80%;
+    width: 40%;
+    vertical-align: middle;
+    border-radius: 50%;
+}
+
+.head .nav_section nav {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 10px;
+    text-align: center;
+    box-sizing: border-box;
+    /* box-shadow: inset 1px 1px 10px rgba(148, 180, 228, 0.479); */
+}
+
+.head section:nth-child(2) nav ul {
+    display: flex;
+    flex-flow: row;
+    width: 90%;
+    position: relative;
+    right: -50px;
+    padding: 20px;
+    justify-content: space-evenly;
+    background: rgb(0, 7, 82);
+    box-shadow: inset 1px 1px 20px rgb(3, 6, 29);
+    border-radius: 50px;
+    align-items: center;
+    position: relative;
+    top: 10%;
+    margin-left: -35px;
+}
+
+.head .nav_section nav ul li {
+    list-style-type: none;
+    transition: all 0.3s ease-out;
+}
+
+.head .nav_section nav ul li:hover,
+.head .nav_section nav ul li:hover a,
+.head .nav_section nav ul li:hover a i {
+    transform: scale(1.1);
+    color: rgb(113, 188, 253);
+}
+
+.head .nav_section nav ul li .active,
+.head .nav_section nav ul li .active i,
+.head .nav_section nav ul li a:active  {
+    color: rgb(113, 188, 253);
+}
+
+.head .nav_section nav ul li a i {
+    font-size: x-large;
+    padding-right: 15px;
+    font-weight: bold;
+    color: rgb(247, 238, 247);
+}
+
+.head .nav_section nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    font-family: sans-serif;
+}
+
+.auth_section {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.auth_section button:nth-child(1) {
+    position: relative;
+    left: 10%;
+    border: none;
+    background-color: transparent;
+    font-family: 'Arial Narrow Bold', sans-serif;
+    color: white;
+    font-weight: 800;
+}
+
+.auth_section button:nth-child(2) {
+    position: relative;
+    border-radius: 40px;
+    border: none;
+    font-family: 'Arial Narrow Bold', sans-serif;
+    padding: 15px 25px;
+    background: linear-gradient(120deg, rgb(241, 32, 67), #2525ee);
+    color: white;
+    font-weight: 800;
+}
+
+.auth_section button {
+    transition: all 0.3s ease-out;
+}
+
+.auth_section button:hover {
+    transform: scale(1.1);
+}

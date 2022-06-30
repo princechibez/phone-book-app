@@ -1,0 +1,57 @@
+.detailed_body {
+    height: 100%;
+    width: 100%;
+    text-align: center;
+}
+
+.detailed_body h1,
+.detailed_body h4 {
+    color: white;
+    font-size: 2em;
+}
+
+.detailed_body .img_section {
+    height: 35%;
+    width: 35%;
+    margin: auto;
+    border-radius: 50%;
+}
+
+.detailed_body .img_section img {
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+}
+
+.detailed_body .button_one {
+    position: relative;
+    border-radius: 15px;
+    border: none;
+    font-family: 'Arial Narrow Bold', sans-serif;
+    padding: 1.2em 1.5em;
+    background: #0a0d35;
+    color: white;
+    font-size: 1em;
+    font-weight: 600;
+    transition: all 0.2s ease-out;
+}
+
+.detailed_body button:hover {
+    transform: scale(1.05);
+    background-color: #121758;
+}
+
+.detailed_body .button_two {
+    position: relative;
+    border-radius: 15px;
+    margin-left: 1em;
+    border: none;
+    font-family: 'Arial Narrow Bold', sans-serif;
+    padding: 1.2em 1.5em;
+    color: white;
+    background: #0a0d35;
+    color: white;
+    font-size: 1em;
+    font-weight: 600;
+    transition: all 0.2s ease-out;
+}

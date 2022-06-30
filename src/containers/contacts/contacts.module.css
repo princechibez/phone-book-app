@@ -1,0 +1,93 @@
+.body {
+    height: 85vh;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgb(4, 6, 31);
+    display: flex;
+    flex-direction: row;
+    flex-flow: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.body .col_left {
+    height: 100%;
+    position: relative;
+    bottom: 0;
+    width: 45%;
+    overflow-y: scroll;
+}
+
+.body .col_left a {
+    text-decoration: none;
+}
+
+/* .body .col_left button {
+    position: relative;
+        margin-bottom: 10px;
+        left: 25%;
+        border-radius: 40px;
+        border: none;
+        font-family: 'Arial Narrow Bold', sans-serif;
+        padding: 15px 25px;
+        background: linear-gradient(120deg, rgb(241, 32, 67), #2525ee);
+        color: white;
+        font-weight: 800;
+        transition: all 0.3s ease-out;
+} */
+
+.body .col_right {
+    position: relative;
+    right: 0;
+    height: 100%;
+    width: 55%;
+}
+
+.body .empty_contacts {
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    color: white;
+}
+
+.empty_contacts h1{
+    position: relative;
+    font-weight: 800;
+    top: 30%;
+    font-family: sans-serif;
+    color: rgb(241, 32, 67);
+    font-size: 1.5em;
+    line-height: 30px;
+}
+
+.empty_contacts i  {
+    color: rgb(138, 136, 136);
+    position: relative;
+    top: 30%;
+    font-size: 3em;
+}
+
+.empty_contacts button {
+    position: relative;
+        top: 30%;
+        border-radius: 40px;
+        border: none;
+        font-family: 'Arial Narrow Bold', sans-serif;
+        padding: 1.5em 1.5em;
+        background: linear-gradient(120deg, rgb(241, 32, 67), #2525ee);
+        color: white;
+        font-weight: 800;
+        transition: all 0.3s ease-out;
+}
+
+.empty_contacts button:hover{
+    transform: scale(0.95);
+    background: linear-gradient(120deg, #c90f2e, #0f0fdd);
+}
+
+.nav {
+    width: 100%;
+    height: 15vh;
+    background: rgb(4, 6, 31);
+}

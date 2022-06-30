@@ -1,0 +1,79 @@
+/* .body-one {
+    height: 100vh;
+    width: 100%;
+    background: url("/src/Assets/images/vecteezy_flat-isometric-illustration-concept-search-data-from-phone_7885681.jpg");
+} */
+
+.body {
+    height: 100vh;
+    width: 100%;
+    background: url("/src/Assets/images/contacts.jpg") no-repeat;
+    object-fit: cover;
+    position: absolute;
+    background-size: cover;
+}
+
+.body form {
+    height: 70%;
+    width: 60%;
+    position: relative;
+    top: calc(100vh - 90%);
+    backdrop-filter: blur(5px);
+    box-shadow: inset 2px 1px 20px rgba(212, 212, 212, 0.952);
+    margin: 0px auto;
+    border-radius: 20px;
+    text-align: center;
+    box-sizing: border-box;
+    background: rgba(216, 214, 214, 0.171);
+    z-index: 100;
+}
+
+.body form h1 {
+    position: relative;
+    font-weight: 700;
+    font-family: 'Lobster', cursive;
+    text-align: center;
+    letter-spacing: 2.5px;
+    color: rgba(243, 164, 177, 0.87);
+    font-size: 2.5em;
+    top: 10%;
+}
+
+.body form button {
+    position: relative;
+    left: 30px;
+    /* display: block;
+    margin: 2em auto; */
+    border-radius: 40px;
+    border: none;
+    font-size: large;
+    font-family: 'Lobster', cursive;
+    text-align: center;
+    letter-spacing: 3px;
+    padding: 15px 25px;
+    background: linear-gradient(120deg, rgba(243, 164, 177, 0.87), rgba(165, 44, 64, 0.87));
+    color: white;
+    transition: all 0.2s ease-out;
+}
+
+.body form button:hover {
+    transform: scale(0.95);
+    background: linear-gradient(120deg, rgba(231, 125, 142, 0.87), rgba(165, 44, 64, 0.87));
+}
+
+form .icon_sec {
+    height: 5rem;
+    width: 50%;
+    margin: auto;
+    text-align: center;
+    position: relative;
+    top: 2rem;
+}
+
+form .icon_sec i {
+        position: relative;
+        color: rgb(243, 164, 177);
+        font-size: 3em;
+        height: 70%;
+        width: 50%;
+    }
