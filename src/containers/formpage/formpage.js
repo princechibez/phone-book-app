@@ -32,13 +32,6 @@ const FormPage = (props) => {
             iconClass: "fa-solid fa-phone",
             value: ""
         },
-        picture: {
-            elementType: "file",
-            elementConfig: {
-                type: "file"
-            },
-            value: null
-        },
         category: {
             elementType: "select",
             elementConfig: [

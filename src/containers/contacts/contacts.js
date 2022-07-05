@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 
-import classes from './contacts.module.css';
+import classes from "./contacts.module.css";
 
 import Spinner from "../../UI/spinner/spinner";
+import SideBar from "../../UI/sideBar/sideBar";
 import Contactlist from "../contactlist/contact";
 import { Aux } from "../../hoc/auxi/auxi";
 import Contactdetail from "./contactdetail/contactdetail";
@@ -13,85 +14,131 @@ import { Link, NavLink, Route, Routes } from "react-router-dom";
 
 import errorHandler from "../../hoc/errorhandler/errorhandler";
 
-import * as actions from '../../store/index';
+import * as actions from "../../store/index";
 import { connect } from "react-redux";
 
 class Contacts extends Component {
+  state = {
+    contacts: null,
+    sideBar: false,
+    fallBackMessage: true,
+  };
 
-    state = {
-        contacts: null
-    }
+  componentDidMount() {
+    this.props.onFetchContacts(axios);
+  }
 
-    componentDidMount () {
-       this.props.onFetchContacts(axios);
-    }
-
-    render() {
-        let infoDisplay;
-        let contactDisplay;
+  render() {
+    let infoDisplay;
+    let contactDisplay;
+    let fallBack = null;
     //    console.log(this.props.contacts);
-        if (this.props.error) {
-            infoDisplay = <p 
-        style={{textAlign: "center", fontSize:"x-large", color: "white"}}>
-            Can't Load Contacts, Try again later.
-            </p> 
-        } else if (this.props.loading) {
-            infoDisplay = <Spinner />;
-        } else if (!this.props.contacts || this.props.contacts)  {
-                contactDisplay = [];
-           for (let keys in this.props.contacts)  {
-                contactDisplay.push({...this.props.contacts[keys], id: keys})
-            }
-            if (contactDisplay.length === 0)  {
-                infoDisplay = (
-                    <div className={classes.empty_contacts}>
-                        <i class="fa-solid fa-user-plus"></i>
-                        <h1>You currently do not have any contact now</h1>
-                        <NavLink to="/new-contact"><button>Start adding contacts</button></NavLink>
-                    </div>
-                );
-            } else if (contactDisplay.length > 0)  {
-                infoDisplay = contactDisplay.map(contact => (
-                    <Link to={`/contact-list/${contact.id}`} key={contact.id}>
-                        <Contactlist name={contact.name} number={contact.phone} />
-                    </Link>
-                ));
-            }
+    if (this.props.error) {
+      infoDisplay = (
+        <p style={{ textAlign: "center", fontSize: "x-large", color: "white" }}>
+          Can't Load Contacts, Try again later.
+        </p>
+      );
+    } else if (this.props.loading) {
+      infoDisplay = <Spinner />;
+    } else if (!this.props.contacts || this.props.contacts) {
+      contactDisplay = [];
+      for (let keys in this.props.contacts) {
+        contactDisplay.push({ ...this.props.contacts[keys], id: keys });
+      }
+
+      if(this.state.fallBackMessage && contactDisplay.length !== 0){
+        fallBack = <h1 className={classes.fallBackTxt}>Click one contact</h1>
+      } else if(this.state.fallBackMessage && contactDisplay.length === 0) {
+        fallBack = <h1 className={classes.fallBackTxt}>Start adding contacts</h1>
+      }
+      
+        if (contactDisplay.length === 0) {
+        infoDisplay = (
+          <div className={classes.empty_contacts}>
+            <i class="fa-solid fa-user-plus"></i>
+            <h1>You currently do not have any contact now</h1>
+            <NavLink to="/new-contact">
+              <button>Start adding contacts</button>
+            </NavLink>
+          </div>
+        );
+      } else if (contactDisplay.length > 0) {
+        infoDisplay = contactDisplay.map((contact) => (
+          <Link
+            to={`/contact-list/${contact.id}`}
+            key={contact.id}
+          >
+            <Contactlist name={contact.name} number={contact.phone} />
+          </Link>
+        ));
+      }
     }
-        
+
+    const closeSideBar = () => {
+      this.setState({ sideBar: false });
+    };
+    const showSideBar = () => {
+      this.setState({ sideBar: true });
+    };
+    // let searchParams = new URLSearchParams();
+    // console.log(searchParams.getAll("selected")[0]);
+    // let paramsForDetails;
+    // if(searchParams.getAll("selected")[0] === true) {
+    //     paramsForDetails = true;
+    //     console.log(paramsForDetails)
+    // } else {
+    //     paramsForDetails = false
+    // }
+    // console.log(window.location.href);
 
     return (
-        <Aux>
-            <div className={classes.nav}>
-            <Navigation show_auth />
-            </div>
+      <Aux>
+        <div className={classes.nav}>
+          <SideBar
+            show_auth
+            closeSideBar={closeSideBar}
+            show={this.state.sideBar}
+          />
+          <Navigation show_auth showSideBar={showSideBar} />
+        </div>
         <section className={classes.body}>
-            <div className={classes.col_left}>
-                {infoDisplay}
-            </div>
-            <div className={classes.col_right}>
+          <div className={classes.col_left}>{infoDisplay}</div>
+          <div className={classes.col_right}>
+            {fallBack}
             <Routes>
-                <Route path="/:contactId" element={ <Contactdetail list_of_contacts={contactDisplay} /> } />
+              <Route
+                path="/:contactId"
+                element={
+                  <Contactdetail
+                    viewer={() => this.setState({ fallBackMessage: false })}
+                    list_of_contacts={contactDisplay}
+                  />
+                }
+              />
             </Routes>
-            </div>
+          </div>
         </section>
-    </Aux>
-        );
-    }
+      </Aux>
+    );
+  }
 }
 
-const mapStateToProps = state => {
-    return {
-        error: state.error,
-        loading: state.loading,
-        contacts: state.contacts
-    }
-}
+const mapStateToProps = (state) => {
+  return {
+    error: state.error,
+    loading: state.loading,
+    contacts: state.contacts,
+  };
+};
 
-const mapDispatchToProps = dispatch => {
-    return {
-        onFetchContacts: (axios) => dispatch(actions.fetchContacts(axios))
-    }
-}
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onFetchContacts: (axios) => dispatch(actions.fetchContacts(axios)),
+  };
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(errorHandler(Contacts, axios));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(errorHandler(Contacts, axios));

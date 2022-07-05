@@ -1,13 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { connect } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import axios from '../../../axios-instance';
 
 import classes from './contactdetail.module.css';
 import sideImageIcon from '../../../Assets/images/vecteezy_note-book-hand-phone-with-pencil-cartoon-vector-icon_6096482.jpg';
 
 const Contactdetail = (props) => {
+    useEffect(() => {
+        props.viewer();
+    }, []);
+    const [searchParams] = useSearchParams();
     let params = useParams();
     // let navigate = useNavigate();
 

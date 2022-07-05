@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 
 import classes from './homepage.module.css';
 import Navigation from "../../components/navigation/navigation";
 import { Aux } from "../../hoc/auxi/auxi";
 
+import SideBar from "../../UI/sideBar/sideBar";
 import sideImage from '../../Assets/images/phonebook icon1.png';
 import editImage from '../../Assets/images/phonebook icon 2.png';
 import searchImg from '../../Assets/images/phonebook icon 3.png';
@@ -11,16 +12,31 @@ import enjoyImg from '../../Assets/images/vecteezy_note-book-hand-phone-with-pen
 import { NavLink } from "react-router-dom";
 // import { Routes } from "react-router-dom";
 
-const homepage = (props) => (
-    <Aux>
+const Homepage = (props) => {
+    const [sideBar, setSideBar] = useState(false);
+
+    const showSideBar = () => {
+      setSideBar(true);
+    };
+
+    const closeSideBar = () => {
+        setSideBar(false);
+      };
+
+    return (
+        <Aux>
         <section className={classes.body}>
-        <Navigation show_auth/>
+        <SideBar
+         show_auth
+         closeSideBar={closeSideBar}
+         show={sideBar} />
+        <Navigation show_auth showSideBar={showSideBar}/>
         <section className={classes.inner_upper_body}>
             <div className={classes.image_section}>
                 <img src={sideImage} height="350px" alt="left-side Image"/>
             </div>
             <div className={classes.text_section}>
-                <h1>All features in <br /> one Phonebook app</h1>
+                <h1>All features in one Phonebook app</h1>
                 <p>
                     This application has a very <br />cool user interface
                     and has many<br /> features in it that makes it exceptional.
@@ -47,6 +63,7 @@ const homepage = (props) => (
         </section>
     </section>
     </Aux>
-);
+    );
+};
 
-export default homepage;
+export default Homepage;

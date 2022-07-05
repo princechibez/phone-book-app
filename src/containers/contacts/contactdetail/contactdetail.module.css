@@ -55,3 +55,18 @@
     font-weight: 600;
     transition: all 0.2s ease-out;
 }
+
+@media (max-width: 680px) {
+    .detailed_body {
+        line-height: 8px;
+    }
+    .detailed_body h1,
+    .detailed_body h4 {
+        letter-spacing: 2px;
+        font-size: 1.5em;
+    }
+    
+    .detailed_body .img_section {
+        margin: 10px auto 0 auto;
+    }
+}
