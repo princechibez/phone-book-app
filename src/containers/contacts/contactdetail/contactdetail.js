@@ -1,60 +1,95 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import { connect } from "react-redux";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
-import axios from '../../../axios-instance';
+import axios from "../../../axios-instance";
 
-import classes from './contactdetail.module.css';
-import sideImageIcon from '../../../Assets/images/vecteezy_note-book-hand-phone-with-pencil-cartoon-vector-icon_6096482.jpg';
+import * as actionTypes from "../../../store/index";
+import classes from "./contactdetail.module.css";
+import sideImageIcon from "../../../Assets/images/camera.png";
+
 
 const Contactdetail = (props) => {
-    useEffect(() => {
-        props.viewer();
-    }, []);
-    const [searchParams] = useSearchParams();
-    let params = useParams();
-    // let navigate = useNavigate();
+  const navigate = useNavigate();
+  const params = useParams();
+  let selected_contact_id = params.contactId;
+  const [ imagePreview, setImagePreview ] = useState();
+  useEffect(() => {
+    props.viewer();
+    props.fetchContact(axios, selected_contact_id);
+  }, [selected_contact_id]);
 
-    // let updatedContactsObject = {};
+  const deleteContact = () => {
 
-    let selected_contact_id = params.contactId;
-    let list_of_contacts = props.list_of_contacts;
+  }
 
-
-    let selectedContact = list_of_contacts.find(contact => contact.id === selected_contact_id);
-    // console.log(selectedContact)
-
-    // const deleteContactHandler = () => {
-    //     axios.get("/contactInfo.json")
-    //     .then(contacts => {
-    //         // updatedContactsObject = {...contacts.data}
-    //         // delete updatedContactsObject[selected_contact_id];
-    //         // navigate("/contact-list");
-    //     })
-    //     .catch(err => console.log(err))
-    // }
-
-    // const updateContactHandler = () => {
-        
-    // }
+  const updateContact = () => {
     
-    return (
-        <div className={classes.detailed_body}>
-            <div className={classes.img_section}>
-                <img src={sideImageIcon} />
-            </div>
-            <h1>{selectedContact.name}</h1>
-            <h4>{selectedContact.phone}</h4>
-            <button className={classes.button_one}>Delete Contact</button>
-            <button className={classes.button_two}>Update Contact</button>
-        </div>
-    );
+  }
+
+  const deleteAllContacts = () => {
+    
+  }
+
+  const genBase64 = (file) => {
+    const reader = new FileReader();
+    const promise = new Promise((resolve, reject) => {
+      reader.onload = e => resolve(e.target.result);
+      reader.onerror = err => reject(err);
+    });
+    reader.readAsDataURL(file);
+    return promise;
+  }
+
+  const fileChangedHandler = (e) => {
+    // genBase64(e.target.files[0])
+    // .then(b64 => {
+    //   setImagePreview(b64);
+    // })
+    // .catch(err => console.log(err))
+    const formData = new FormData();
+    formData.append("profile-image", e.target.files[0])
+    axios.post(`http://localhost:5000/users/add-contact-profile-pix/${props.contact._id}`, 
+          formData, {
+          headers: { 
+            "Authorization": localStorage.getItem("token")
+          }
+    })
+    .then(res => {
+      navigate(`/contact-list/${props.contact._id}`, {replace: true})
+      window.location.reload()
+    })
+    .catch(err => console.log(err))
+  }
+  
+  return (
+    <div className={classes.detailed_body}>
+      <div className={classes.img_section}>
+        <img src={
+            props.contact.contactImage === "" ? sideImageIcon : 
+            `http://localhost:5000/${props.contact.contactImage}`
+           } alt="profile-image" />
+        <input type="file" name="profile-image" onChange={fileChangedHandler} />
+      </div>
+      <h1>{`${props.contact.contactName} - ${props.contact.contactCategory}`}</h1>
+      <h5>{props.contact.contactNumber}</h5>
+      <button className={classes.button_one} onClick={deleteContact}>Delete Contact</button>
+      <button className={classes.button_two} onClick={updateContact}>Update Contact</button>
+      <button className={classes.button_two} onClick={deleteAllContacts}>Delete all contacts</button>
+    </div>
+  );
 };
 
-const mapStateToProps = state => {
-    return {
-        contacts: state.contacts
-    }
-}
+const mapStateToProps = (state) => {
+  return {
+    contact: state.contact,
+  };
+};
 
-export default connect(mapStateToProps, null)(Contactdetail);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchContact: (axios, contactId) => dispatch(actionTypes.fetchContact(axios, contactId))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Contactdetail);

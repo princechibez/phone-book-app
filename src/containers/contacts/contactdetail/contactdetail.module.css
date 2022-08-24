@@ -5,14 +5,14 @@
 }
 
 .detailed_body h1,
-.detailed_body h4 {
+.detailed_body h5 {
     color: white;
     font-size: 2em;
 }
 
 .detailed_body .img_section {
-    height: 35%;
-    width: 35%;
+    height: 80px;
+    width: 100px;
     margin: auto;
     border-radius: 50%;
 }
@@ -21,18 +21,31 @@
     height: 100%;
     width: 100%;
     border-radius: 50%;
+    z-index: 100;
 }
 
-.detailed_body .button_one {
+.detailed_body .img_section input {
     position: relative;
-    border-radius: 15px;
+    bottom: 90%;
+    height: 80%;
+    width: 80%;
+    opacity: 0;
+    z-index: 200;
+    border-radius: 50%;
+}
+
+.detailed_body button {
+    position: relative;
+    top: -10px;
+    border-radius: 10px;
     border: none;
     font-family: 'Arial Narrow Bold', sans-serif;
-    padding: 1.2em 1.5em;
+    padding: 1.2em 0.5em;
+    margin: 1px;
     background: #0a0d35;
     color: white;
     font-size: 1em;
-    font-weight: 600;
+    font-weight: 400;
     transition: all 0.2s ease-out;
 }
 
@@ -41,7 +54,7 @@
     background-color: #121758;
 }
 
-.detailed_body .button_two {
+/* .detailed_body .button_two {
     position: relative;
     border-radius: 15px;
     margin-left: 1em;
@@ -54,14 +67,14 @@
     font-size: 1em;
     font-weight: 600;
     transition: all 0.2s ease-out;
-}
+} */
 
 @media (max-width: 680px) {
     .detailed_body {
         line-height: 8px;
     }
     .detailed_body h1,
-    .detailed_body h4 {
+    .detailed_body h5 {
         letter-spacing: 2px;
         font-size: 1.5em;
     }

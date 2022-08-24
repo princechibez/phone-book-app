@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 
 import classes from "./contacts.module.css";
 
@@ -17,39 +17,37 @@ import errorHandler from "../../hoc/errorhandler/errorhandler";
 import * as actions from "../../store/index";
 import { connect } from "react-redux";
 
-class Contacts extends Component {
-  state = {
+const Contacts = (props) => {
+  const [ state, setState ] = useState({
     contacts: null,
     sideBar: false,
     fallBackMessage: true,
-  };
+  })
 
-  componentDidMount() {
-    this.props.onFetchContacts(axios);
-  }
+  useEffect(() => {
+    props.onFetchContacts(axios);
+  }, [""])
 
-  render() {
     let infoDisplay;
     let contactDisplay;
     let fallBack = null;
-    //    console.log(this.props.contacts);
-    if (this.props.error) {
+    if (props.error) {
       infoDisplay = (
         <p style={{ textAlign: "center", fontSize: "x-large", color: "white" }}>
           Can't Load Contacts, Try again later.
         </p>
       );
-    } else if (this.props.loading) {
+    } else if (props.loading) {
       infoDisplay = <Spinner />;
-    } else if (!this.props.contacts || this.props.contacts) {
+    } else if (!props.contacts || props.contacts) {
       contactDisplay = [];
-      for (let keys in this.props.contacts) {
-        contactDisplay.push({ ...this.props.contacts[keys], id: keys });
+      for (let key of props.contacts) {
+        contactDisplay.push(key);
       }
 
-      if(this.state.fallBackMessage && contactDisplay.length !== 0){
+      if(state.fallBackMessage && contactDisplay.length !== 0){
         fallBack = <h1 className={classes.fallBackTxt}>Click one contact</h1>
-      } else if(this.state.fallBackMessage && contactDisplay.length === 0) {
+      } else if(state.fallBackMessage && contactDisplay.length === 0) {
         fallBack = <h1 className={classes.fallBackTxt}>Start adding contacts</h1>
       }
       
@@ -66,20 +64,23 @@ class Contacts extends Component {
       } else if (contactDisplay.length > 0) {
         infoDisplay = contactDisplay.map((contact) => (
           <Link
-            to={`/contact-list/${contact.id}`}
-            key={contact.id}
+            to={`/contact-list/${contact._id}`}
+            key={contact._id}
           >
-            <Contactlist name={contact.name} number={contact.phone} />
+            <Contactlist
+                name={contact.contactName}
+                number={contact.contactNumber}
+                image={contact.contactImage} />
           </Link>
         ));
       }
     }
 
     const closeSideBar = () => {
-      this.setState({ sideBar: false });
+      setState({ sideBar: false });
     };
     const showSideBar = () => {
-      this.setState({ sideBar: true });
+      setState({ sideBar: true });
     };
     // let searchParams = new URLSearchParams();
     // console.log(searchParams.getAll("selected")[0]);
@@ -98,9 +99,9 @@ class Contacts extends Component {
           <SideBar
             show_auth
             closeSideBar={closeSideBar}
-            show={this.state.sideBar}
+            show={state.sideBar}
           />
-          <Navigation show_auth showSideBar={showSideBar} />
+          <Navigation showSideBar={showSideBar} />
         </div>
         <section className={classes.body}>
           <div className={classes.col_left}>{infoDisplay}</div>
@@ -111,7 +112,7 @@ class Contacts extends Component {
                 path="/:contactId"
                 element={
                   <Contactdetail
-                    viewer={() => this.setState({ fallBackMessage: false })}
+                    viewer={() => setState({ fallBackMessage: false })}
                     list_of_contacts={contactDisplay}
                   />
                 }
@@ -121,7 +122,6 @@ class Contacts extends Component {
         </section>
       </Aux>
     );
-  }
 }
 
 const mapStateToProps = (state) => {

@@ -1,38 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 
-import classes from './formpage.module.css';
+import classes from './addcontact.module.css';
 import Input from "../../UI/input/input";
 import { Aux } from "../../hoc/auxi/auxi";
 import Backdrop from "../../UI/backdrop/backdrop";
+import ErrorModal from "../../UI/errorModal/errorModal";
 
 import axios from "../../axios-instance";
 import { Link, useNavigate } from "react-router-dom";
-import errorHandler from "../../hoc/errorhandler/errorhandler";
 
-const FormPage = (props) => {
+const AddContact = (props) => {
 
     let navigate = useNavigate();
 
-    let contactData = {
-        name: {
+    let [ error, setError ] = useState(null);
+    let [ contactData, setContactData] = useState({
+        contactName: {
             elementType: "input",
             elementConfig: {
                 type: "text",
                 placeholder: "Fullname"
             },
-            iconClass: "fa-solid fa-file-signature",
             value: ""
         },
-        phone : {
+        contactNumber : {
             elementType: "input",
             elementConfig: {
                 type: "number",
                 placeholder: "Phone Number"
             },
-            iconClass: "fa-solid fa-phone",
             value: ""
         },
-        category: {
+        contactCategory: {
             elementType: "select",
             elementConfig: [
                 {value: "Family", displayValue: "Family"},
@@ -40,43 +39,18 @@ const FormPage = (props) => {
                 {value: "Colleague", displayValue: "Colleague"}
             ]
         }
-    }
-
-    // let imageGallery = [classes.body_one, classes.body_two];
-    // let returnedClass;
-
-    // setInterval(() => {
-    //     let imageIndex = parseInt(Number(Math.random() * imageGallery.length));
-    //     returnedClass = imageGallery[imageIndex];
-    // }, 2000);
-    
-
-    let formDataArray = [];
-    for (let key in contactData) {
-            formDataArray.push({...contactData[key], key: key})          
-    }
+    })
 
     const inputChangedandler = (event, type, identifier) => {
         let newContactData;
         let contactInfo;
-        if (type === "file") {
-            newContactData = { ...contactData };
-            contactInfo = {
-                ...newContactData[identifier]
-            }
-            contactInfo.value = event.target.files[0];
-            console.log(contactInfo.value)
-            newContactData[identifier] = contactInfo
-            contactData = newContactData;
-        } else {
             newContactData = { ...contactData };
             contactInfo = {
                 ...newContactData[identifier]
             }
             contactInfo.value = event.target.value;
             newContactData[identifier] = contactInfo
-            contactData = newContactData;
-        }
+            setContactData(newContactData);
     }
     
 
@@ -86,25 +60,37 @@ const FormPage = (props) => {
         for (let info in contactData) {
             contactInfo[info] = contactData[info].value;
         }
-        axios.post('/contactInfo.json', contactInfo)
+        axios.post('http://localhost:5000/users/addcontact', JSON.stringify(contactInfo), {
+            headers: { "Content-Type": "application/json", "Authorization": localStorage.getItem("token") },
+        })
         .then(response => {
-            navigate({pathname: "/contact-list"})
-        }).catch(err => {
-            console.log(err)
+            setTimeout(() => {
+                navigate({pathname: "/contact-list"})
+            }, 2000);
+        })
+        .catch(err => {
+            setError(err.response)
         });
+    }
+    
+    let formDataArray = [];
+    for (let key in contactData) {
+            formDataArray.push({...contactData[key], key: key})          
     }
 
     return (
         <Aux>
         <section className={classes.body}>
             <Backdrop show />
+            <ErrorModal show={error}>
+                { error ? error.data : null }
+            </ErrorModal>
                 <form onSubmit={formSubmitHandler}>
                     <h1>Add new contact</h1>
                     {
                         formDataArray.map((element, i) => (
                                 <Input 
                                 key={i}
-                                iconClass={element.iconClass}
                                 elementType={element.elementType}
                                 elementConfig={element.elementConfig}
                                 value={element.elementConfig.value}
@@ -122,4 +108,4 @@ const FormPage = (props) => {
     );
 };
 
-export default FormPage;
+export default AddContact;

@@ -9,7 +9,6 @@ const input = (props) => {
         case "input":
             inputElement = (
                 <div className={classes.div}>
-                    <i class={props.iconClass}></i>
                     <input {...props.elementConfig}
                     value={props.value}
                     onChange={props.changed} />
@@ -35,7 +34,7 @@ const input = (props) => {
         
         case "select":
             inputElement = (
-            <select className={classes.select} value={props.value}>
+            <select className={classes.select} value={props.value} onChange={props.changed}>
                 <option>Choose Category</option>
                 {
                     props.elementConfig.map((option, index) => (

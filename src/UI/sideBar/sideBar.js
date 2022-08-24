@@ -76,8 +76,18 @@ const SideBar = (props) => {
           </section>
           {props.show_auth ? (
             <section className={classes.auth_section}>
-              <button>Login</button>
-              <button>Register</button>
+              <button><NavLink
+                  to="/login"
+                  className={({ isActive }) =>
+                    isActive ? classes.active : null
+                  }
+                >Login</NavLink></button>
+            <button><NavLink
+                  to="/signup"
+                  className={({ isActive }) =>
+                    isActive ? classes.active : null
+                  }
+                >Sign up</NavLink></button>
             </section>
           ) : null}
           <Outlet />

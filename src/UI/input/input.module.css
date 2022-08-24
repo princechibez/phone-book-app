@@ -2,48 +2,36 @@
     position: relative;
     top: 12%;
     height: 8%;
-    border-bottom: 3px solid rgb(243, 164, 177);
     border-radius: 10px;
-    margin: 1.3rem auto;
+    margin: 1rem auto;
     width: 70%;
     text-align: center;
-    /* display: inline; */
 }
 
 .div input {
     outline: none;
-    border: none;
+    border: 1px solid rgb(243, 164, 177);
     color: white;
     background-color: transparent;
     position: relative;
-    /* top: 3px; */
     height: 70%;
     width: 80%;
+    padding: 0.5em;
     font-size: 1.5em;
     font-family: 'Lobster', cursive;
     text-align: center;
     letter-spacing: 2.5px;
-    /* border: ; */
+    border-radius: 5px;
 }
 
 .div input::placeholder {
     color: rgb(223, 223, 223);
 }
 
-.div i {
-    display: inline;
-    position: relative;
-    left: 10px;
-    color: rgb(243, 164, 177);
-    font-size: 2em;
-    height: 70%;
-    width: 50%;
-}
-
 .select {
     margin-top: 70px;
     outline: none;
-    border: 5px solid rgb(243, 164, 177);
+    border: 1px solid rgb(243, 164, 177);
     color: rgb(243, 164, 177);
     background-color: transparent;
     height: 10%;
@@ -58,19 +46,9 @@
     .select {
         margin-top: 50px;
         border-radius: 5px;
-        width: 60%;
+        width: 64%;
         font-size: 1em;
         letter-spacing: 2px;
-    }
-
-    .div i {
-        display: inline;
-        position: relative;
-        left: 10px;
-        color: rgb(243, 164, 177);
-        font-size: 1.5em;
-        height: 70%;
-        width: 30%;
     }
 
     .div {

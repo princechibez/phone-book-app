@@ -7,6 +7,7 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import ContactsReducer from './store/reducer/contactsReducer';
+// import { configureStore, applyMiddleware, compose, combineReducers } from '@reduxjs/toolkit';
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 

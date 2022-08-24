@@ -3,7 +3,8 @@ import * as actionTypes from '../index';
 const initialState = {
     error: false,
     loading: false,
-    contacts: null
+    contacts: [],
+    contact: {}
 }
 
 const contactsReducer = (state = initialState, action) => {
@@ -34,6 +35,12 @@ const contactsReducer = (state = initialState, action) => {
                 ...state,
                 error: false,
                 contacts: action.contacts
+            }
+
+        case actionTypes.FETCH_SINGLE_CONTACT:
+            return {
+                ...state,
+                contact: action.contact
             }
         
         default:

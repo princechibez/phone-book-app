@@ -1,0 +1,101 @@
+/* .body-one {
+    height: 100vh;
+    width: 100%;
+    background: url("/src/Assets/images/vecteezy_flat-isometric-illustration-concept-search-data-from-phone_7885681.jpg");
+} */
+
+/* @media (min-width: 751px) {
+    .body form input {
+        background-color: red;
+        margin-top: 30px;
+    }
+} */
+
+/* for mobile responsiveness */
+
+@media (min-width: 200px) {
+    .body {
+        height: 100vh;
+        width: 100%;
+        background: url("/src/Assets/images/contacts.jpg") no-repeat;
+        object-fit: cover;
+        position: absolute;
+        background-size: cover;
+        overflow: hidden;
+    }
+
+    .body form {
+        height: 70%;
+        width: 85%;
+        position: relative;
+        top: calc(100vh - 90%);
+        backdrop-filter: blur(5px);
+        box-shadow: 2px 1px 15px rgba(212, 212, 212, 0.508);
+        margin: 0px auto;
+        border-radius: 20px;
+        text-align: center;
+        box-sizing: border-box;
+        background: rgba(185, 185, 185, 0.079);
+        z-index: 100;
+    }
+
+    .body form h1 {
+        position: relative;
+        font-weight: 700;
+        font-family: 'Lobster', cursive;
+        text-align: center;
+        letter-spacing: 2.5px;
+        color: rgba(243, 164, 177, 0.87);
+        font-size: 1.5em;
+        top: 10%;
+    }
+    
+    .body form h4 {
+        width: 70%;
+        margin: 1em auto 0 auto;
+        text-align: center;
+        letter-spacing: 2.5px;
+        color: rgba(243, 164, 177, 0.87);
+    }
+    .body form h4 a {
+        text-decoration: none;
+        color: rgba(248, 88, 115, 0.974);
+    }
+
+    .body form button {
+        position: relative;
+        margin: 5em auto 0 auto;
+        display: block;
+        border-radius: 10px;
+        border: none;
+        font-size: 18px;
+        font-family: 'Lobster', cursive;
+        text-align: center;
+        letter-spacing: 3px;
+        padding: 10px 20px;
+        background: linear-gradient(120deg, rgba(245, 109, 132, 0.87), rgba(165, 44, 64, 0.87));
+        color: white;
+        transition: all 0.2s ease-out;
+    }
+
+    .body form button:hover {
+        transform: scale(0.95);
+        background: linear-gradient(120deg, rgba(231, 125, 142, 0.87), rgba(165, 44, 64, 0.87));
+    }
+
+    form .icon_sec {
+        margin: auto;
+        text-align: center;
+        position: relative;
+        top: 1rem;
+        width: 20%;
+    }
+
+    form .icon_sec i {
+        position: relative;
+        color: rgb(243, 164, 177);
+        font-size: 2em;
+        height: 40%;
+        width: 50%;
+    }
+}

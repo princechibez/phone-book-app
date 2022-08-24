@@ -114,6 +114,10 @@
         border-radius: 50px;
         outline: none;
     }
+    .auth_section button a {
+        color: inherit;
+        text-decoration: none;
+    }
     .auth_section button:nth-child(1) {
         border: none;
         margin-left: 20px;

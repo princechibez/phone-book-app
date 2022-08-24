@@ -40,7 +40,7 @@ const Navigation = (props) => {
                     isActive ? classes.active : null
                   }
                 >
-                  <i class="fa-solid fa-user-plus"></i>Add{" "}
+                  <i class="fa-solid fa-user-plus"></i>Add
                 </NavLink>
               </li>
             </ul>
@@ -48,8 +48,18 @@ const Navigation = (props) => {
         </section>
         {props.show_auth ? (
           <section className={classes.auth_section}>
-            <button>Login</button>
-            <button>Sign up</button>
+            <button><NavLink
+                  to="/login"
+                  className={({ isActive }) =>
+                    isActive ? classes.active : null
+                  }
+                >Login</NavLink></button>
+            <button><NavLink
+                  to="/signup"
+                  className={({ isActive }) =>
+                    isActive ? classes.active : null
+                  }
+                >Sign up</NavLink></button>
           </section>
         ) : null}
         <Outlet />

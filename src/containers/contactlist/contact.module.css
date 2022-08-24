@@ -13,8 +13,8 @@
 }
 
 .body .img_section {
-    height: 65%;
-    width: 20%;
+    height: 70px;
+    width: 100px;
     border-radius: 50%;
     position: relative;
     left: 1em;

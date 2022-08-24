@@ -19,6 +19,13 @@ export const setContacts = (dataFromServer) => {
     }
 }
 
+export const setContact = (dataFromServer) => {
+    return {
+        type: actionTypes.FETCH_SINGLE_CONTACT,
+        contact: dataFromServer
+    }
+}
+
 export const fetchContactFail = (err) => {
     return {
         type: actionTypes.FETCH_CONTACT_FAIL,
@@ -29,13 +36,33 @@ export const fetchContactFail = (err) => {
 export const fetchContacts = (axios) => {
     return dispatch => {
         dispatch(fetchContactStart());
-        axios.get('/contactInfo.json')
+        axios.get('http://localhost:5000/users/getallcontacts', {
+            headers: {
+              "Authorization": localStorage.getItem("token")
+            }
+          })
          .then(response => {
-             dispatch(setContacts(response.data));
+            dispatch(setContacts(response.data.contacts));
             dispatch(fetchContactSuccess());
          })
          .catch(err => {
-             dispatch(fetchContactFail(err))
+            dispatch(fetchContactFail(err))
+         })
+    }
+}
+
+export const fetchContact = (axios, contactId) => {
+    return dispatch => {
+        axios.get(`http://localhost:5000/users/getsinglecontact/${contactId}`, {
+            headers: {
+              "Authorization": localStorage.getItem("token")
+            }
+          })
+         .then(response => {
+            dispatch(setContact(response.data.contact));
+         })
+         .catch(err => {
+            console.log(err)
          })
     }
 }

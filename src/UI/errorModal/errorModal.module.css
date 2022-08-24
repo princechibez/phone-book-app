@@ -1,0 +1,39 @@
+.Modal {
+    position: relative;
+    z-index: 500;
+    background-color: rgb(251, 182, 174);
+    width: 70%;
+    border: 2px solid rgb(222, 75, 58);
+    border-radius: 5px;
+    padding: 16px;
+    left: 15%;
+    top: 3%;
+    box-sizing: border-box;
+    transition: all 0.4s ease-out;
+}
+
+.Modal::before {
+    content: "";
+    position: absolute;
+    background-color: rgb(161, 243, 161);
+    height: 5px;
+    border-radius: 5px;
+    bottom: 0;
+    left: 0;
+    /* animation: errorExpiration 5s linear; */
+}
+
+/* @keyframes errorExpiration {
+    from {
+        width: 0;
+    } to {
+        width: 100%;
+    }
+} */
+
+@media (min-width: 600px) {
+    .Modal {
+        width: 500px;
+        left: calc(50% - 250px);
+    }
+}
