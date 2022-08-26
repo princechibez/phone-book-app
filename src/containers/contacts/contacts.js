@@ -10,7 +10,7 @@ import Contactdetail from "./contactdetail/contactdetail";
 
 import axios from "../../axios-instance";
 import Navigation from "../../components/navigation/navigation";
-import { Link, NavLink, Route, Routes } from "react-router-dom";
+import { Link, NavLink, Route, Routes, useSearchParams } from "react-router-dom";
 
 import errorHandler from "../../hoc/errorhandler/errorhandler";
 
@@ -82,16 +82,6 @@ const Contacts = (props) => {
     const showSideBar = () => {
       setState({ sideBar: true });
     };
-    // let searchParams = new URLSearchParams();
-    // console.log(searchParams.getAll("selected")[0]);
-    // let paramsForDetails;
-    // if(searchParams.getAll("selected")[0] === true) {
-    //     paramsForDetails = true;
-    //     console.log(paramsForDetails)
-    // } else {
-    //     paramsForDetails = false
-    // }
-    // console.log(window.location.href);
 
     return (
       <Aux>

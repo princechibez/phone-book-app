@@ -7,9 +7,19 @@ import Backdrop from "../../UI/backdrop/backdrop";
 import ErrorModal from "../../UI/errorModal/errorModal";
 
 import axios from "../../axios-instance";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 
 const AddContact = (props) => {
+    // const [searchParams] = useSearchParams();
+    // console.log(searchParams.entries())
+    // let paramsForDetails;
+    // if(searchParams.getAll("selected")[0] === true) {
+    //     paramsForDetails = true;
+    //     console.log(paramsForDetails)
+    // } else {
+    //     paramsForDetails = false
+    // }
+    console.log(window.location.search);
 
     let navigate = useNavigate();
 
@@ -93,7 +103,7 @@ const AddContact = (props) => {
                                 key={i}
                                 elementType={element.elementType}
                                 elementConfig={element.elementConfig}
-                                value={element.elementConfig.value}
+                                value={element.value}
                                 changed={(event) => inputChangedandler(event, element.elementConfig.type, element.key)}
                                 />
                         ))

@@ -19,16 +19,32 @@ const Contactdetail = (props) => {
     props.fetchContact(axios, selected_contact_id);
   }, [selected_contact_id]);
 
-  const deleteContact = () => {
-
+  const deleteAllContacts = async () => {
+    try {
+      let result = await axios.delete("http://localhost:5000/users/deleteallcontacts", {
+      headers: { "Authorization": localStorage.getItem("token") }
+    });
+    if (result) navigate("contact-list")
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   const updateContact = () => {
-    
+    navigate({pathname: "new-contact", search: `?editing=true&contactId=${props.contact._id}`})
   }
 
-  const deleteAllContacts = () => {
-    
+  const deleteContact = () => {
+    axios.delete(`http://localhost:5000/users/deletecontact/${props.contact._id}`, {
+          headers: { 
+            "Authorization": localStorage.getItem("token")
+          }
+    })
+    .then(res => {
+      navigate(`/contact-list`, {replace: true})
+      window.location.reload()
+    })
+    .catch(err => console.log(err))
   }
 
   const genBase64 = (file) => {
