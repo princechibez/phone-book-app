@@ -56,7 +56,7 @@ const Login = (props) => {
       contactInfo[info] = contactData[info].value;
     }
     axios
-      .post("http://localhost:5000/auth/login", JSON.stringify(contactInfo), {
+      .post("https://phonebook-node-api.herokuapp.com/auth/login", JSON.stringify(contactInfo), {
         headers: {
           "Content-Type": "application/json",
         },

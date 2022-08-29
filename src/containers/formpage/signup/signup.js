@@ -61,7 +61,7 @@ const Signup = (props) => {
     for (let info in contactData) {
       contactInfo[info] = contactData[info].value;
     }
-    axios.put("http://localhost:5000/auth/signup", JSON.stringify(contactInfo), {
+    axios.put("https://phonebook-node-api.herokuapp.com/auth/signup", JSON.stringify(contactInfo), {
       headers: {
         "Content-Type": "application/json",
       }

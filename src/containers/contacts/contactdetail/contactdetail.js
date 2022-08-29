@@ -35,7 +35,7 @@ const Contactdetail = (props) => {
   const deleteContact = () => {
     axios
       .delete(
-        `http://localhost:5000/users/deletecontact/${props.contact._id}`,
+        `https://phonebook-node-api.herokuapp.com/users/deletecontact/${props.contact._id}`,
         {
           headers: {
             Authorization: localStorage.getItem("token"),
@@ -69,7 +69,7 @@ const Contactdetail = (props) => {
     formData.append("profile-image", e.target.files[0]);
     axios
       .post(
-        `http://localhost:5000/users/add-contact-profile-pix/${props.contact._id}`,
+        `https://phonebook-node-api.herokuapp.com/users/add-contact-profile-pix/${props.contact._id}`,
         formData,
         {
           headers: {
@@ -91,7 +91,7 @@ const Contactdetail = (props) => {
           src={
             props.contact.contactImage === ""
               ? sideImageIcon
-              : `http://localhost:5000/${props.contact.contactImage}`
+              : `https://phonebook-node-api.herokuapp.com/${props.contact.contactImage}`
           }
           alt="profile-image"
         />

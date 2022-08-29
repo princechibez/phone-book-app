@@ -11,7 +11,7 @@ const contactlist = (props) => {
             <div className={classes.img_section}>
                 <img src={
                     props.image === "" ? sideImageIcon : 
-                    `http://localhost:5000/${props.image}`
+                    `https://phonebook-node-api.herokuapp.com/${props.image}`
                 } alt="profile_image" />
             </div>
             <div className={classes.text_section}>

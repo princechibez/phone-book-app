@@ -48,7 +48,7 @@ export const loginHandler = (err) => {
 export const fetchContacts = (axios) => {
     return dispatch => {
         dispatch(fetchContactStart());
-        axios.get('http://localhost:5000/users/getallcontacts', {
+        axios.get('https://phonebook-node-api.herokuapp.com/users/getallcontacts', {
             headers: {
               "Authorization": localStorage.getItem("token")
             }
@@ -65,7 +65,7 @@ export const fetchContacts = (axios) => {
 
 export const fetchContact = (axios, contactId) => {
     return dispatch => {
-        axios.get(`http://localhost:5000/users/getsinglecontact/${contactId}`, {
+        axios.get(`https://phonebook-node-api.herokuapp.com/users/getsinglecontact/${contactId}`, {
             headers: {
               "Authorization": localStorage.getItem("token")
             }

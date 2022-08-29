@@ -78,7 +78,7 @@ const AddContact = (props) => {
       let response = null;
     if (valuesFromUrlQuery.editing) {
       response = await axios.patch(
-        `http://localhost:5000/users/updatecontact/${valuesFromUrlQuery.contactId}`,
+        `https://phonebook-node-api.herokuapp.com/users/updatecontact/${valuesFromUrlQuery.contactId}`,
         JSON.stringify(contactInfo),
         {
           headers: {
@@ -95,7 +95,7 @@ const AddContact = (props) => {
     }
 
     response = await axios.post(
-      "http://localhost:5000/users/addcontact",
+      "https://phonebook-node-api.herokuapp.com/users/addcontact",
       JSON.stringify(contactInfo),
       {
         headers: {
