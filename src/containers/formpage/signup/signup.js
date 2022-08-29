@@ -87,7 +87,7 @@ const Signup = (props) => {
           { error ? error.data : null }
         </ErrorModal>
         <form onSubmit={formSubmitHandler}>
-          <h1>Add new contact</h1>
+          <h1>Signup</h1>
           {formDataArray.map((element, i) => (
             <Input
               key={i}

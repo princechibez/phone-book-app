@@ -74,7 +74,8 @@ const AddContact = (props) => {
     for (let info in contactData) {
       contactInfo[info] = contactData[info].value;
     }
-    let response = null;
+    try {
+      let response = null;
     if (valuesFromUrlQuery.editing) {
       response = await axios.patch(
         `http://localhost:5000/users/updatecontact/${valuesFromUrlQuery.contactId}`,
@@ -106,6 +107,9 @@ const AddContact = (props) => {
     if (response) {
       navigate({ pathname: `/contact-list/${response.data.newContact[0]._id}` });
     }
+    } catch(err) {
+      setError(err.response)
+    }
   };
 
   let formDataArray = [];
@@ -119,7 +123,7 @@ const AddContact = (props) => {
         <Backdrop show />
         <ErrorModal show={error}>{error ? error.data : null}</ErrorModal>
         <form onSubmit={formSubmitHandler}>
-          <h1>Add new contact</h1>
+          <h1>{valuesFromUrlQuery.editing ? `Update ${valuesFromUrlQuery.contactName}` : "Add new contact"}</h1>
           {formDataArray.map((element, i) => (
             <Input
               key={i}

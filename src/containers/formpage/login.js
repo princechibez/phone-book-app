@@ -89,7 +89,7 @@ const Login = (props) => {
           { error ? error.data : success ? success : null }
         </ErrorModal>
         <form onSubmit={formSubmitHandler}>
-          <h1>Add new contact</h1>
+          <h1>Login to account</h1>
           {formDataArray.map((element, i) => (
             <Input
               key={i}
