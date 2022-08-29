@@ -91,7 +91,7 @@ const SideBar = (props) => {
                   </NavLink>
                 </li>
                   { 
-                  window.location.href.split("http://localhost:3000/")[1] !== ("" && "new-contact") ?
+                  window.location.href.split("http://localhost:3000/").includes("contact-list") ?
                   <li>
                     <NavLink
                     onClick={deleteAllContacts}

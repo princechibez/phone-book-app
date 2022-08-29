@@ -18,7 +18,6 @@ import * as actions from "../../store/index";
 import { connect } from "react-redux";
 
 const Contacts = (props) => {
-  console.log(props.auth)
   const navigate = useNavigate();
   const [ state, setState ] = useState({
     contacts: null,
