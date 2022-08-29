@@ -4,7 +4,8 @@ const initialState = {
     error: false,
     loading: false,
     contacts: [],
-    contact: {}
+    contact: {},
+    auth: localStorage.getItem("auth")
 }
 
 const contactsReducer = (state = initialState, action) => {
@@ -41,6 +42,21 @@ const contactsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 contact: action.contact
+            }
+
+        case actionTypes.LOGOUT:
+            localStorage.removeItem("auth")
+            localStorage.removeItem("token")
+            return {
+                ...state,
+                auth: localStorage.getItem("auth")
+            }
+
+        case actionTypes.LOGIN:
+            localStorage.setItem("auth", "true")
+            return {
+                ...state,
+                auth: localStorage.getItem("auth")
             }
         
         default:

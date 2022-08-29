@@ -3,7 +3,10 @@ export {
     FETCH_CONTACT_SUCCESS,
     FETCH_CONTACT_FAIL,
     SET_CONTACTS,
-    FETCH_SINGLE_CONTACT
+    FETCH_SINGLE_CONTACT,
+    LOGOUT,
+    AUTO_LOGOUT,
+    LOGIN
 } from './actions/contactsActions';
 
 export {
@@ -11,5 +14,7 @@ export {
     fetchContactSuccess,
     fetchContactFail,
     fetchContacts,
-    fetchContact
+    fetchContact,
+    logout,
+    autoLogout
 } from './actionCreators/contactActionCreators';

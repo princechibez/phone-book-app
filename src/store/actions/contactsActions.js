@@ -7,3 +7,9 @@ export const FETCH_CONTACT_FAIL = "FETCH_CONTACT_FAIL";
 export const SET_CONTACTS = "SET_CONTACTS";
 
 export const FETCH_SINGLE_CONTACT = "FETCH_SINGLE_CONTACT";
+
+export const LOGOUT = "LOGOUT";
+
+export const LOGIN = "LOGIN";
+
+export const AUTO_LOGOUT = "AUTO_LOGOUT";

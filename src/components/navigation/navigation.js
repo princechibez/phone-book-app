@@ -1,9 +1,11 @@
 import React from "react";
+import { connect } from "react-redux";
 
 import classes from "./navigation.module.css";
 import logo from "../../Assets/images/phone.png";
 import { Aux } from "../../hoc/auxi/auxi";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
+import * as actiontypes from "../../store/index";
 
 const Navigation = (props) => {
   let navigate = useNavigate();
@@ -46,7 +48,7 @@ const Navigation = (props) => {
             </ul>
           </nav>
         </section>
-        {props.show_auth ? (
+        {!props.auth ? (
           <section className={classes.auth_section}>
             <button><NavLink
                   to="/login"
@@ -61,11 +63,28 @@ const Navigation = (props) => {
                   }
                 >Sign up</NavLink></button>
           </section>
-        ) : null}
+        ) : <section className={classes.auth_section}>
+          <button style={{marginLeft: "5em"}} onClick={() => {
+          props.onLogout()
+          navigate("/login")
+        }}>Logout</button>
+        </section> }
         <Outlet />
       </header>
     </Aux>
   );
 };
 
-export default Navigation;
+const mapStateToProps = state => {
+  return {
+    auth: state.auth
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onLogout: () => dispatch(actiontypes.logout)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navigation);

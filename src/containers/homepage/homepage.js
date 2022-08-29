@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import classes from './homepage.module.css';
 import Navigation from "../../components/navigation/navigation";
@@ -10,10 +10,19 @@ import editImage from '../../Assets/images/phonebook icon 2.png';
 import searchImg from '../../Assets/images/phonebook icon 3.png';
 import enjoyImg from '../../Assets/images/vecteezy_note-book-hand-phone-with-pencil-cartoon-vector-icon_6096482.jpg'
 import { NavLink } from "react-router-dom";
-// import { Routes } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
+import { connect } from "react-redux";
 
 const Homepage = (props) => {
     const [sideBar, setSideBar] = useState(false);
+    const navigate = useNavigate();
+
+    // useEffect(() => {
+    //     if(!props.auth) {
+    //         navigate("/login")
+    //     }
+    // }, [])
 
     const showSideBar = () => {
       setSideBar(true);
@@ -27,10 +36,9 @@ const Homepage = (props) => {
         <Aux>
         <section className={classes.body}>
         <SideBar
-         show_auth
          closeSideBar={closeSideBar}
          show={sideBar} />
-        <Navigation show_auth showSideBar={showSideBar}/>
+        <Navigation showSideBar={showSideBar}/>
         <section className={classes.inner_upper_body}>
             <div className={classes.image_section}>
                 <img src={sideImage} height="350px" alt="left-side Image"/>
@@ -66,4 +74,10 @@ const Homepage = (props) => {
     );
 };
 
-export default Homepage;
+const mapStateToProps = state => {
+    return {
+        auth: state.auth
+    }
+}
+
+export default connect(mapStateToProps, null)(Homepage);

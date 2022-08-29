@@ -1,9 +1,12 @@
 import React from "react";
 import { Aux } from "../../hoc/auxi/auxi";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
+import axios from "../../axios-instance";
+import { connect } from "react-redux";
 
 import logo from "../../Assets/images/phone.png";
 import BackDrop from "../backdrop/backdrop";
+import * as actiontypes from "../../store/index";
 
 import classes from "./sideBar.module.css";
 
@@ -17,6 +20,22 @@ const SideBar = (props) => {
   } else {
     sideBarStyles.push(classes.closeSideBar)
   }
+
+  const deleteAllContacts = async () => {
+    try {
+      let result = await axios.delete(
+        "http://localhost:5000/users/deleteallcontacts",
+        {
+          headers: { Authorization: localStorage.getItem("token") },
+        }
+      );
+      if (result) {
+        window.location.reload();
+      };
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <Aux>
@@ -71,10 +90,20 @@ const SideBar = (props) => {
                     <i class="fa-solid fa-user-plus"></i>Add{" "}
                   </NavLink>
                 </li>
+                  { 
+                  window.location.href.split("http://localhost:3000/")[1] !== ("" && "new-contact") ?
+                  <li>
+                    <NavLink
+                    onClick={deleteAllContacts}
+                    to="/contact-list"
+                  >
+                    <i class="fa-regular fa-trash-can"></i>Delete all{" "}
+                  </NavLink>
+                </li> : null }
               </ul>
             </nav>
           </section>
-          {props.show_auth ? (
+          {!props.auth ? (
             <section className={classes.auth_section}>
               <button><NavLink
                   to="/login"
@@ -89,12 +118,26 @@ const SideBar = (props) => {
                   }
                 >Sign up</NavLink></button>
             </section>
-          ) : null}
+          ) : <button onClick={() => {
+            props.onLogout()
+            navigate("/login")
+          }}>Logout</button> }
           <Outlet />
         </header>
       </div>
     </Aux>
   );
 };
+const mapStateToProps = state => {
+  return {
+    auth: state.auth
+  }
+}
 
-export default SideBar;
+const mapDispatchToProps = dispatch => {
+  return {
+    onLogout: () => dispatch(actiontypes.logout())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SideBar);

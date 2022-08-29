@@ -5,12 +5,15 @@ import Input from "../../UI/input/input";
 import { Aux } from "../../hoc/auxi/auxi";
 import Backdrop from "../../UI/backdrop/backdrop";
 import ErrorModal from "../../UI/errorModal/errorModal";
+import { autoLogout, loginHandler } from "../../store/actionCreators/contactActionCreators";
 
+import { connect } from "react-redux";
 import axios from "../../axios-instance";
 import { Link, useNavigate } from "react-router-dom";
 
 const Login = (props) => {
     const [ error, setError ] = useState(null);
+    const [ success, setSuccess ] = useState(null);
   let navigate = useNavigate();
 
   const [ contactData, setContactData ] = useState(
@@ -59,10 +62,15 @@ const Login = (props) => {
         },
       })
       .then((response) => {
+        props.onLogin();
+        props.onAutoLogout();
+        setError(null);
+        setSuccess(response.data.message)
         localStorage.setItem("token", response.data.token)
         navigate({ pathname: "/contact-list" });
       })
       .catch((err) => {
+        setSuccess(null);
         setError(err.response);
         console.log(err.response)
       });
@@ -77,8 +85,8 @@ const Login = (props) => {
     <Aux>
       <section className={classes.body}>
         <Backdrop show />
-        <ErrorModal show={error}>
-          { error ? error.data : null }
+        <ErrorModal show={error || success} success={success}>
+          { error ? error.data : success ? success : null }
         </ErrorModal>
         <form onSubmit={formSubmitHandler}>
           <h1>Add new contact</h1>
@@ -113,4 +121,11 @@ const Login = (props) => {
   );
 };
 
-export default Login;
+const mapDispatchToProps = dispatch => {
+  return {
+    onAutoLogout: () => dispatch(autoLogout()),
+    onLogin: () => dispatch(loginHandler())
+  }
+}
+
+export default connect(null, mapDispatchToProps)(Login);

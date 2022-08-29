@@ -10,7 +10,7 @@ import Contactdetail from "./contactdetail/contactdetail";
 
 import axios from "../../axios-instance";
 import Navigation from "../../components/navigation/navigation";
-import { Link, NavLink, Route, Routes, useSearchParams } from "react-router-dom";
+import { Link, NavLink, Route, Routes, useSearchParams, useNavigate } from "react-router-dom";
 
 import errorHandler from "../../hoc/errorhandler/errorhandler";
 
@@ -18,6 +18,8 @@ import * as actions from "../../store/index";
 import { connect } from "react-redux";
 
 const Contacts = (props) => {
+  console.log(props.auth)
+  const navigate = useNavigate();
   const [ state, setState ] = useState({
     contacts: null,
     sideBar: false,
@@ -26,7 +28,10 @@ const Contacts = (props) => {
 
   useEffect(() => {
     props.onFetchContacts(axios);
-  }, [""])
+    if(!props.auth) {
+      navigate("/login")
+    }
+  }, [])
 
     let infoDisplay;
     let contactDisplay;
@@ -87,7 +92,6 @@ const Contacts = (props) => {
       <Aux>
         <div className={classes.nav}>
           <SideBar
-            show_auth
             closeSideBar={closeSideBar}
             show={state.sideBar}
           />
@@ -119,6 +123,7 @@ const mapStateToProps = (state) => {
     error: state.error,
     loading: state.loading,
     contacts: state.contacts,
+    auth: state.auth
   };
 };
 

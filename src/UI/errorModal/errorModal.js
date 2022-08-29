@@ -9,8 +9,11 @@ const ErrorModal = (props) => {
         props.show ? <Aux>
         <div className={classes.Modal}
     style={{
+        backgroundColor: props.success ? "rgb(174, 251, 176)" : "rgb(251, 182, 174)",
+        border: props.success ? "2px solid rgb(58, 222, 66)" : "2px solid rgb(222, 75, 58)",
         transform: props.show ? "translateX(0)" : "translateX(-100vh)",
-        opacity: props.show ? "1" : "0"
+        opacity: props.show ? "1" : "0",
+        textAlign: "center"
     }}>
         {props.children}
     </div>

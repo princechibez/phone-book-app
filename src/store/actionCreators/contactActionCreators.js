@@ -33,6 +33,18 @@ export const fetchContactFail = (err) => {
     }
 }
 
+export const logout = (err) => {
+    return {
+        type: actionTypes.LOGOUT
+    }
+}
+
+export const loginHandler = (err) => {
+    return {
+        type: actionTypes.LOGIN
+    }
+}
+
 export const fetchContacts = (axios) => {
     return dispatch => {
         dispatch(fetchContactStart());
@@ -64,5 +76,13 @@ export const fetchContact = (axios, contactId) => {
          .catch(err => {
             console.log(err)
          })
+    }
+}
+
+export const autoLogout = () => {
+    return dispatch => {
+        setTimeout(() => {
+            dispatch(logout())
+        }, (300000 * 6));
     }
 }
