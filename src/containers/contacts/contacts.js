@@ -27,10 +27,10 @@ const Contacts = (props) => {
 
   useEffect(() => {
     props.onFetchContacts(axios);
-    if(!props.auth) {
-      navigate("/login")
-    }
   }, [])
+  if(!props.auth) {
+    navigate("/login")
+  }
 
     let infoDisplay;
     let contactDisplay;

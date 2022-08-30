@@ -13,6 +13,7 @@ import ErrorModal from "../../../UI/errorModal/errorModal";
 
 const Signup = (props) => {
   const [ error, setError ] = useState(null);
+  const [ signupSuccess, setSignupSuccess ] = useState(null);
   const [ contactData, setContactData ] = useState({
     name: {
       elementType: "input",
@@ -61,13 +62,17 @@ const Signup = (props) => {
     for (let info in contactData) {
       contactInfo[info] = contactData[info].value;
     }
-    axios.put("https://phonebook-node-api.herokuapp.com/auth/signup", JSON.stringify(contactInfo), {
+    axios.put("http://localhost:5000/auth/signup", JSON.stringify(contactInfo), {
       headers: {
         "Content-Type": "application/json",
       }
     })
       .then((response) => {
-        navigate({pathname: "/login"})
+        setError(null)
+        setSignupSuccess(response.data.message)
+        setTimeout(() => {
+          navigate({pathname: "/login"})
+        }, 1000);
       })
       .catch((err) => {
         setError(err.response);
@@ -83,8 +88,8 @@ const Signup = (props) => {
     <Aux>
       <section className={classes.body}>
         <Backdrop show />
-        <ErrorModal show={error}>
-          { error ? error.data : null }
+        <ErrorModal show={error || signupSuccess} success={signupSuccess}>
+          { error ? error.data : signupSuccess ? signupSuccess : null }
         </ErrorModal>
         <form onSubmit={formSubmitHandler}>
           <h1>Signup</h1>

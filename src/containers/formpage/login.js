@@ -6,6 +6,8 @@ import { Aux } from "../../hoc/auxi/auxi";
 import Backdrop from "../../UI/backdrop/backdrop";
 import ErrorModal from "../../UI/errorModal/errorModal";
 import { autoLogout, loginHandler } from "../../store/actionCreators/contactActionCreators";
+import Spinner from "../../UI/spinner/spinner";
+import LoaderDot from "../../UI/loaderDot/loaderDot";
 
 import { connect } from "react-redux";
 import axios from "../../axios-instance";
@@ -62,12 +64,14 @@ const Login = (props) => {
         },
       })
       .then((response) => {
-        props.onLogin();
-        props.onAutoLogout();
         setError(null);
         setSuccess(response.data.message)
-        localStorage.setItem("token", response.data.token)
-        navigate({ pathname: "/contact-list" });
+        setTimeout(() => {
+          props.onLogin();
+          props.onAutoLogout();
+          localStorage.setItem("token", response.data.token)
+          navigate({ pathname: "/contact-list" });
+        }, 3000);
       })
       .catch((err) => {
         setSuccess(null);
@@ -81,12 +85,26 @@ const Login = (props) => {
     formDataArray.push({ ...contactData[key], key: key });
   }
 
+  const loginSuccessMessage = () => {
+    let onSuccessfullLoginMessage = success;
+      setTimeout(() => {
+        onSuccessfullLoginMessage = "Redirecting";
+        setSuccess(onSuccessfullLoginMessage)
+    }, 1000);
+    return onSuccessfullLoginMessage
+  }
+
   return (
     <Aux>
       <section className={classes.body}>
         <Backdrop show />
         <ErrorModal show={error || success} success={success}>
-          { error ? error.data : success ? success : null }
+          { error ? error.data : success ? 
+          <div style={{display: "flex", justifyContent: "space-around", alignItems: "center"}}>
+            <span style={{fontSize: "1.2em"}}>
+              {loginSuccessMessage()}
+              </span> <LoaderDot />
+          </div> : null }
         </ErrorModal>
         <form onSubmit={formSubmitHandler}>
           <h1>Login to account</h1>

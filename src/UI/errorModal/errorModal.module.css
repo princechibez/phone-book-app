@@ -8,6 +8,9 @@
     top: 3%;
     box-sizing: border-box;
     transition: all 0.4s ease-out;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }
 
 .Modal::before {
